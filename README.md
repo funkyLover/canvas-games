@@ -1,21 +1,20 @@
-canvasÊµÏÖµÄÐ¡ÓÎÏ·
+canvaså®žçŽ°çš„å°æ¸¸æˆ
 ===================
 
-ÕýÔÚÑ§Ï°html5ÓÈÆäÏ²»¶canvas
-Í¨¹ýÐ´¼¸¸öÐ¡demoÀ´Ñ§Ï°canvas
-²»¶¨ÆÚ¸üÐÂ
-»òÀ´×ÔÓÚ½Ì²Ä
-»òÀ´×ÔÓÚ×Ô¼º´´Òâ(Õâ¸öÑ§Ï°µ½Ò»¶¨³Ì¶È²ÅÄÜ×öµ½°É)
+æ­£åœ¨å­¦ä¹ html5å°¤å…¶å–œæ¬¢canvas</br>
+é€šè¿‡å†™å‡ ä¸ªå°demoæ¥å­¦ä¹ canvas </br>
+ä¸å®šæœŸæ›´æ–° æˆ–æ¥è‡ªäºŽæ•™æ</br>
+æˆ–æ¥è‡ªäºŽè‡ªå·±åˆ›æ„(è¿™ä¸ªå­¦ä¹ åˆ°ä¸€å®šç¨‹åº¦æ‰èƒ½åšåˆ°å§)
 
 ##space bowling
-°´ÊéÉÏÇÃµÄ<br/>
-HTML5 Canvas»ù´¡½Ì³Ì
+æŒ‰ä¹¦ä¸Šæ•²çš„</br>
+HTML5 CanvasåŸºç¡€æ•™ç¨‹
 
 ##flappy demo
-¸úÍ¬Ñ§×ö×ÅÍæµÄ
-Ã»ÓÃÉÏcanvas,ÂýÂýÍêÉÆ
+è·ŸåŒå­¦åšç€çŽ©çš„ </br>
+æ²¡ç”¨ä¸Šcanvas,æ…¢æ…¢å®Œå–„
 
 ##asteroid avoidance
-°´ÊéÉÏÇÃµÄ<br/>
-ÉÐÎ´Íê³É
-HTML5 Canvas»ù´¡½Ì³Ì
+æŒ‰ä¹¦ä¸Šæ•²çš„</br>
+HTML5 CanvasåŸºç¡€æ•™ç¨‹</br>
+å°šæœªå®Œæˆ
