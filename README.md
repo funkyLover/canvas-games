@@ -18,7 +18,7 @@ HTML5 Canvas基础教程
 按书上敲的<br/>
 HTML5 Canvas基础教程<br/>
 
-##poker-memory-game
+##poker memory game
 按书上敲的<br/>
 年代久远,bug多多<br/>
 忘记哪本书了
