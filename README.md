@@ -17,4 +17,8 @@ HTML5 Canvas基础教程
 ##asteroid avoidance
 按书上敲的<br/>
 HTML5 Canvas基础教程<br/>
-尚未完成
+
+##poker-memory-game
+按书上敲的<br/>
+年代久远,bug多多<br/>
+忘记哪本书了
