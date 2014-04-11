@@ -22,3 +22,9 @@ HTML5 Canvas基础教程<br/>
 按书上敲的<br/>
 年代久远,bug多多<br/>
 忘记哪本书了
+
+##blackboard
+coming soon
+
+##magnifying glass in canvas
+coming soon
