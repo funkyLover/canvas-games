@@ -24,8 +24,8 @@ HTML5 Canvas基础教程<br/>
 忘记哪本书了
 
 ##blackboard
-完成涂鸦<br/>
-晚点加上擦除
+基本完成<br/>
+如果有更好的鼠标样式再进行修改
 
 ##magnifying glass in canvas
 coming soon
