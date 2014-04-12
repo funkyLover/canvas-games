@@ -4,7 +4,7 @@ canvas实现的小游戏
 正在学习html5尤其喜欢canvas<br/>
 通过写几个小demo来学习canvas <br/>
 不定期更新 或来自于教材<br/>
-或来自于自己创意(这个学习到一定程度才能做到吧)
+或来自于自己想法(这个学习到一定程度才能做到吧)
 
 ##space bowling
 按书上敲的<br/>
@@ -29,3 +29,7 @@ HTML5 Canvas基础教程<br/>
 
 ##magnifying glass in canvas
 coming soon
+
+##glasspane
+coming soon<br/>
+玻璃板效果demo
