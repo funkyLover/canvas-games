@@ -37,6 +37,7 @@ $(document).ready(function(){
             if(tmpball.y + tmpball.radius > canvasHeight || tmpball.y - tmpball.radius < 0){
                 tmpball.vy = -tmpball.vy;
             }
+            //简单的检测边界碰撞
             tmpball.x += tmpball.vx;
             tmpball.y += tmpball.vy;
             context.fillStyle = tmpball.color;
@@ -52,11 +53,13 @@ $(document).ready(function(){
 
     $("button").click(function(){
         flag = flag ? false : true;
+        //按下按钮改变东环状态
         if(flag){
             animate();
         }
     });
     function bounce(){
+        //开波!
         for(var i=0;i<balls.length;i++){
             context.fillStyle = balls[i].color;
             context.beginPath();
