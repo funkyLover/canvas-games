@@ -24,7 +24,8 @@ HTML5 Canvas基础教程<br/>
 忘记哪本书了
 
 ##blackboard
-coming soon
+完成涂鸦<br/>
+晚点加上擦除
 
 ##magnifying glass in canvas
 coming soon
