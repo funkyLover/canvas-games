@@ -8,7 +8,7 @@ canvas实现的小游戏
 
 ##space bowling
 按书上敲的<br/>
-<<HTML5 Canvas基础教程>>
+点子来自书本 HTML5 Canvas基础教程
 
 ##flappy demo
 跟同学做着玩的 <br/>
@@ -16,7 +16,7 @@ canvas实现的小游戏
 
 ##asteroid avoidance
 按书上敲的<br/>
-<<HTML5 Canvas基础教程>><br/>
+点子来自书本 HTML5 Canvas基础教程
 
 ##poker memory game
 按书上敲的<br/>
@@ -32,7 +32,7 @@ coming soon
 
 ##glasspane
 玻璃板效果demo<br/>
-<<html5 canvas核心技术>>上的效果<br/>
+效果来自 html5 canvas核心技术<br/>
 自己实现
 
 
