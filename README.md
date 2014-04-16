@@ -28,7 +28,8 @@ canvas实现的小游戏
 如果有更好的鼠标样式再进行修改
 
 ##magnifying glass in canvas
-coming soon
+基本完成<br/>
+下一步添加与用户的交互<br/>
 
 ##glasspane
 玻璃板效果demo<br/>
