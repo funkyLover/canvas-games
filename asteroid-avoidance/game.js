@@ -19,8 +19,7 @@ $(document).ready(function() {
 
 
 
-	var ui = $("#gameUI"),
-		uiIntro = $("#gameIntro"),
+	var uiIntro = $("#gameIntro"),
 		uiStats = $("#gameStats"),
 		uiComplete = $("#gameComplete"),
 		uiPlay = $("#gamePlay"),
