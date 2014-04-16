@@ -4,12 +4,31 @@ $(document).ready(function () {
     loadImage("../image/example.jpg", function() {
         context.drawImage(this, 0, 0);
     });
-
     var imgData = null;
+    var multiple = 2;//默认放大两倍
+    var radius = 80;//放大镜半径
+
+    var range1 = $("#range1");
+    range1.change(function(){
+        multiple = range1.val();
+    });
+
+    /*
+    原本打算添加与用户的交互
+    可以让用户调整放大镜的尺寸,
+    不过尝试了很久,如果在打开网页之前直接修改radius的值的话
+    不会出错,
+    当时如果是打开网页让用户动态调整时就会出错
+    搞不懂
+    var range2 = $("#range2");
+    range2.change(function(){
+        context.putImageData(imgData, preX - (radius + 1), preY - (radius + 1));
+        radius = range2.val();
+        imgData = null;
+
+    });*/
     var preX;//用于移动鼠标时恢复canvas
     var preY;
-    var multiple = 2;//放大两倍
-
     canvas.on("mousemove", function(e) {
         /*
          * 如果鼠标是第一次移入canvas
@@ -18,10 +37,10 @@ $(document).ready(function () {
          *
          * */
         if(imgData) {
-            context.putImageData(imgData, preX - 51, preY - 51);
-            imgData = context.getImageData(e.clientX - 51, e.clientY - 51, 102, 102);
+            context.putImageData(imgData, preX - (radius + 1), preY - (radius + 1));
+            imgData = context.getImageData(e.clientX - (radius + 1), e.clientY - (radius + 1), (radius*2 + 2), (radius*2 + 2));
         } else {
-            imgData = context.getImageData(e.clientX - 51, e.clientY - 51, 102, 102);
+            imgData = context.getImageData(e.clientX - (radius + 1), e.clientY - (radius + 1), (radius*2 + 2), (radius*2 + 2));
         }
         /*
         * 在调用getImageData putImageData 和 drawImage的时候
@@ -35,13 +54,14 @@ $(document).ready(function () {
         //保存canvas状态
         context.strokeStyle = "rgb(255,255,255)";
         context.beginPath();
-        context.arc(e.clientX, e.clientY, 50, 0, Math.PI*2, true);
+        context.arc(e.clientX, e.clientY, radius, 0, Math.PI*2, true);
         context.closePath();
         context.stroke();
         context.clip();
         //剪辑放大镜区域
-        context.drawImage(canvas.get(0), e.clientX - 51, e.clientY - 51, 102, 102,
-            e.clientX - 51*multiple, e.clientY - 51*multiple, 102*multiple, 102*multiple);
+        context.drawImage(canvas.get(0), e.clientX - (radius + 1), e.clientY - (radius + 1), (radius*2 + 2), (radius*2 + 2),
+            e.clientX - (radius + 1)*multiple + 6*multiple, e.clientY - (radius + 1)*multiple + 6*multiple,
+            (radius*2 + 2)*multiple, (radius*2 + 2)*multiple);
         context.restore();
         //恢复canvas状态
         /*
@@ -52,6 +72,10 @@ $(document).ready(function () {
         preX = e.clientX;
         preY = e.clientY;
     });
+
+    canvas.on("mouseout", function(){
+        canvas.unbind("mou")
+    })
 
     function loadImage(url, callback) {
         var img = new Image(); //创建一个Image对象，实现图片的预下载
@@ -64,6 +88,10 @@ $(document).ready(function () {
         img.onload = function () { //图片下载完毕时异步调用callback函数。
             callback.call(img);//将回调函数的this替换为Image对象
         };
+    }
+
+    function magnify(){
+
     }
 
 });

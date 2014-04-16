@@ -6,3 +6,10 @@ body {
     background-color: #ffffff;
     border: thin solid #aaaaaa;
 }
+
+form {
+    left: 815px;
+    background-color: #ffffff;
+    position: absolute;
+
+}
