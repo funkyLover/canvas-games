@@ -90,9 +90,5 @@ $(document).ready(function () {
         };
     }
 
-    function magnify(){
-
-    }
-
 });
 
