@@ -7,8 +7,10 @@ $(document).ready(function () {
     var uiPlay = $("#gamePlay");
     var uiReset = $(".gameReset");
     var uiScore = $(".gameScore");
+    var uiExplain = $("#explain");
 
     var playGame = false;//标志值,用于判定游戏开始与否
+    var point;//分数
 
 
     var left_boxes;//左侧箱子
@@ -18,7 +20,7 @@ $(document).ready(function () {
     var k = 107;
     var l = 108;
     var a = 97;
-    var colors = ["#CC3399", "#CCCC00","#FF0000","#FF3300", "#FFFF00", "#66FFCC", "51153204", "#3300FF","#00CC00"];
+    var colors = ["#FF0000", "#00FF00","#0000FF","#33FF66", "#CCFF00", "#FF66FF", "#CC00FF", "#99FFFF","#009966"];
     var check = false;//检测是否已有任何方位的箱子被选中
 
     var timeoutId;//用于调用clearTimeout方法的参数
@@ -50,8 +52,10 @@ $(document).ready(function () {
     }
 
     function startGame(){
+        point = 0;
         uiScore.html("0");
         uiStats.show();
+        uiExplain.show();
         context.clearRect(0, 0, 360, 600);
         check = false;
         left_boxes = new Array();//左侧箱子
@@ -66,6 +70,7 @@ $(document).ready(function () {
                  * */
                 if(check){
                     moveBoxToLeft();
+                    removeBoxes(left_boxes);
                 } else {
                     selectBox(left_boxes);
                 }
@@ -75,6 +80,7 @@ $(document).ready(function () {
                 * */
                 if(check){
                     moveBoxToMid();
+                    removeBoxes(mid_boxes);
                 } else {
                     selectBox(mid_boxes);
                 }
@@ -84,6 +90,7 @@ $(document).ready(function () {
                 * */
                 if(check){
                     moveBoxToRight();
+                    removeBoxes(right_boxes);
                 } else {
                     selectBox(right_boxes);
                 }
@@ -91,10 +98,12 @@ $(document).ready(function () {
                 clearTimeout(timeoutId);
                 animate();
             }
+            uiScore.html(point);
             if((left_boxes.length + 1)*40>600 || (mid_boxes.length + 1)*40>600 || (right_boxes.length + 1)*40>600) {
                 clearTimeout(timeoutId);
                 playGame = false;
                 uiStats.hide();
+                uiExplain.hide();
                 uiComplete.show();
                 $(window).unbind("keypress");
             }
@@ -105,6 +114,7 @@ $(document).ready(function () {
     function init() {
         uiStats.hide();
         uiComplete.hide();
+        uiExplain.hide();
         uiPlay.click(function(e) {
             e.preventDefault();
             uiIntro.hide();
@@ -163,10 +173,9 @@ $(document).ready(function () {
             context.restore();
         }
         if(playGame) {
-            timeoutId = setTimeout(animate, 3000);
+            timeoutId = setTimeout(animate, 1500);
         }
     }
-
     function moveBoxToLeft(){
         if(left_boxes[0] && left_boxes[0].check){
             left_boxes[0].check = false;
@@ -177,7 +186,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(mid_boxes[0].check) {
+        } else if(mid_boxes[0] && mid_boxes[0].check) {
             mid_boxes[0].check = false;
             mid_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
@@ -191,7 +200,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(right_boxes[0].check) {
+        } else if(right_boxes[0] && right_boxes[0].check) {
             right_boxes[0].check = false;
             right_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
@@ -218,7 +227,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(left_boxes[0].check) {
+        } else if(left_boxes[0] && left_boxes[0].check) {
             left_boxes[0].check = false;
             left_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
@@ -232,7 +241,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(right_boxes[0].check) {
+        } else if(right_boxes[0] && right_boxes[0].check) {
             right_boxes[0].check = false;
             right_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
@@ -259,7 +268,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(mid_boxes[0].check) {
+        } else if(mid_boxes[0] && mid_boxes[0].check) {
             mid_boxes[0].check = false;
             mid_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
@@ -273,7 +282,7 @@ $(document).ready(function () {
             context.stroke();
             context.fill();
             context.restore();
-        } else if(left_boxes[0].check) {
+        } else if(left_boxes[0] && left_boxes[0].check) {
             left_boxes[0].check = false;
             left_boxes[0].linecolor = "rgb(0,0,0)";
             context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
@@ -304,10 +313,33 @@ $(document).ready(function () {
             check = true;
         }
     }
+
+    function removeBoxes(boxes){
+        var removeColor = boxes[0].color;//将该方位的一个箱子颜色作为消除标准
+        var count = 1;//记录相同颜色的箱子有几个
+        for(var i=1;i<boxes.length;i++){
+            if(boxes[i].color != removeColor) {
+                break;
+            } else {
+                count++;
+            }
+        }
+        if(count >= 3){
+            //颜色相同的箱子大于3时则进行消除
+            context.clearRect(boxes[count-1].x - 1, boxes.length*40 - count*40, boxes[count-1].width + 2, count*40 + 2);
+            boxes.splice(0,count);
+            point += count;
+        }
+    }
+
     function pushBox(boxes, x){
         var num;
         var boxColor;
-        num = Math.floor(Math.random()*3);
+        //按得分增加游戏难度
+        //每得100分增加一种箱子
+        var i;
+        i = i==9 ? 9 : (3 + Math.floor(point/100));
+        num = Math.floor(Math.random()*i);
         boxColor = colors[num];
         var box = new Box(x, -40, boxColor);
         boxes.push(box);

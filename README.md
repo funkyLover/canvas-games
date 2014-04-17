@@ -29,7 +29,7 @@ canvas实现的小游戏
 
 ##magnifying glass in canvas
 基本完成<br/>
-下一步添加与用户的交互<br/>
+有空加上用户的交互<br/>
 
 ##glasspane
 玻璃板效果demo<br/>
@@ -37,9 +37,9 @@ canvas实现的小游戏
 自己实现
 
 ##carry box
-全家总动员中 妈妈的搬箱子<br/>
-没玩过?那就当我没说过吧<br/>
-新目标,马上记下来<br/>
-coming soon
+完成搬箱子<br/>
+从头到尾都自己完成<br/>
+虽然游戏逻辑不够完善,代码也挺多冗余<br/>
+不过还是小兴奋
 
 

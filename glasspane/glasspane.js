@@ -4,7 +4,7 @@ $(document).ready(function(){
     var canvasWidth = canvas.width();
     var canvasHeight = canvas.height();
     var numBall = 100;//100个球
-    var colors = ["#CC3399", "#CCCC00","#FF0000","#FF3300", "#FFFF00", "#66FFCC", "51153204", "#3300FF","#00CC00"];
+    var colors = ["#CC3399", "#CCCC00","#FF0000","#FF3300", "#FFFF00", "#66FFCC", "#00FF99", "#3300FF","#00CC00"];
     var flag = true;
     //以上颜色选自bootcss.com中网络安全色,纯粹个人喜欢
     var Ball = function(radius, vx, vy, color){
