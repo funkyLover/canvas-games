@@ -53,25 +53,19 @@ $(document).ready(function () {
         uiScore.html("0");
         uiStats.show();
         context.clearRect(0, 0, 360, 600);
+        check = false;
         left_boxes = new Array();//左侧箱子
         mid_boxes = new Array();//中间箱子
         right_boxes = new Array();//右侧箱子
         playGame = true;
         $(window).on("keypress", function(e) {
             var keyCode = e.which;
-            /*
-            * 这里有个问题,逻辑有点难搞懂,
-            * 当其中一个方位的箱子数组长度为0时不能正常进行选择
-            * */
-            if(left_boxes.length != 0 && right_boxes.length != 0 && mid_boxes.length != 0) {
-                check = left_boxes[0].check || right_boxes[0].check || mid_boxes[0].check ? true : false;
-            }
             if(keyCode == j) {
                 /*
                  * 选中左边的箱子或将箱子向左移
                  * */
                 if(check){
-                    moveBox(j);
+                    moveBoxToLeft();
                 } else {
                     selectBox(left_boxes);
                 }
@@ -80,7 +74,7 @@ $(document).ready(function () {
                 * 选中中间的箱子或将箱子向中移
                 * */
                 if(check){
-                    moveBox(k);
+                    moveBoxToMid();
                 } else {
                     selectBox(mid_boxes);
                 }
@@ -89,7 +83,7 @@ $(document).ready(function () {
                 * 选中的右边的箱子或将箱子向右移
                 * */
                 if(check){
-                    moveBox(l);
+                    moveBoxToRight();
                 } else {
                     selectBox(right_boxes);
                 }
@@ -169,147 +163,146 @@ $(document).ready(function () {
             context.restore();
         }
         if(playGame) {
-            timeoutId = setTimeout(animate, 150);
+            timeoutId = setTimeout(animate, 3000);
         }
     }
 
-    function moveBox(keycode){
-        /*
-        * 移动箱子的方法,
-        * 写得很冗余,之后改进
-        * 先完成,再优化
-        * */
-        if(keycode == j){
-            if(left_boxes[0].check){
-                left_boxes[0].check = false;
-                left_boxes[0].linecolor = "rgb(0,0,0)";
-                context.save();
-                context.fillStyle = left_boxes[0].color;
-                roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(mid_boxes[0].check) {
-                mid_boxes[0].check = false;
-                mid_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
-                var shiftBox = mid_boxes.shift();
-                shiftBox.y = left_boxes.length * 40;
-                shiftBox.x = 0;
-                left_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = left_boxes[0].color;
-                roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(right_boxes[0].check) {
-                right_boxes[0].check = false;
-                right_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
-                var shiftBox = right_boxes.shift();
-                shiftBox.y = left_boxes.length * 40;
-                shiftBox.x = 0;
-                left_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = left_boxes[0].color;
-                roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            }
+    function moveBoxToLeft(){
+        if(left_boxes[0] && left_boxes[0].check){
+            left_boxes[0].check = false;
+            left_boxes[0].linecolor = "rgb(0,0,0)";
+            context.save();
+            context.fillStyle = left_boxes[0].color;
+            roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(mid_boxes[0].check) {
+            mid_boxes[0].check = false;
+            mid_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
+            var shiftBox = mid_boxes.shift();
+            shiftBox.y = left_boxes.length * 40;
+            shiftBox.x = 0;
+            left_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = left_boxes[0].color;
+            roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(right_boxes[0].check) {
+            right_boxes[0].check = false;
+            right_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
+            var shiftBox = right_boxes.shift();
+            shiftBox.y = left_boxes.length * 40;
+            shiftBox.x = 0;
+            left_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = left_boxes[0].color;
+            roundRect(context, left_boxes[0].x, left_boxes[0].y, left_boxes[0].width, left_boxes[0].height, 10, left_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
         }
-        if(keycode == k){
-            if(mid_boxes[0].check){
-                mid_boxes[0].check = false;
-                mid_boxes[0].linecolor = "rgb(0,0,0)";
-                context.save();
-                context.fillStyle = mid_boxes[0].color;
-                roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(left_boxes[0].check) {
-                left_boxes[0].check = false;
-                left_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
-                var shiftBox = left_boxes.shift();
-                shiftBox.y = mid_boxes.length * 40;
-                shiftBox.x = 120;
-                mid_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = mid_boxes[0].color;
-                roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(right_boxes[0].check) {
-                right_boxes[0].check = false;
-                right_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
-                var shiftBox = right_boxes.shift();
-                shiftBox.y = mid_boxes.length * 40;
-                shiftBox.x = 120;
-                mid_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = mid_boxes[0].color;
-                roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            }
+        check = false;
+    }
+    function moveBoxToMid(){
+        if(mid_boxes[0] && mid_boxes[0].check){
+            mid_boxes[0].check = false;
+            mid_boxes[0].linecolor = "rgb(0,0,0)";
+            context.save();
+            context.fillStyle = mid_boxes[0].color;
+            roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(left_boxes[0].check) {
+            left_boxes[0].check = false;
+            left_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
+            var shiftBox = left_boxes.shift();
+            shiftBox.y = mid_boxes.length * 40;
+            shiftBox.x = 120;
+            mid_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = mid_boxes[0].color;
+            roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(right_boxes[0].check) {
+            right_boxes[0].check = false;
+            right_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(right_boxes[0].x - 1, right_boxes[0].y - 1, right_boxes[0].width + 2, right_boxes[0].height + 2);
+            var shiftBox = right_boxes.shift();
+            shiftBox.y = mid_boxes.length * 40;
+            shiftBox.x = 120;
+            mid_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = mid_boxes[0].color;
+            roundRect(context, mid_boxes[0].x, mid_boxes[0].y, mid_boxes[0].width, mid_boxes[0].height, 10, mid_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
         }
-        if(keycode == l){
-            if(right_boxes[0].check){
-                right_boxes[0].check = false;
-                right_boxes[0].linecolor = "rgb(0,0,0)";
-                context.save();
-                context.fillStyle = right_boxes[0].color;
-                roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(mid_boxes[0].check) {
-                mid_boxes[0].check = false;
-                mid_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
-                var shiftBox = mid_boxes.shift();
-                shiftBox.y = right_boxes.length * 40;
-                shiftBox.x = 240;
-                right_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = right_boxes[0].color;
-                roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            } else if(left_boxes[0].check) {
-                left_boxes[0].check = false;
-                left_boxes[0].linecolor = "rgb(0,0,0)";
-                context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
-                var shiftBox = left_boxes.shift();
-                shiftBox.y = right_boxes.length * 40;
-                shiftBox.x = 240;
-                right_boxes.unshift(shiftBox);
-                context.save();
-                context.fillStyle = right_boxes[0].color;
-                roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
-                context.stroke();
-                context.fill();
-                context.restore();
-            }
+        check = false;
+    }
+    function moveBoxToRight(){
+        if(right_boxes[0] && right_boxes[0].check){
+            right_boxes[0].check = false;
+            right_boxes[0].linecolor = "rgb(0,0,0)";
+            context.save();
+            context.fillStyle = right_boxes[0].color;
+            roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(mid_boxes[0].check) {
+            mid_boxes[0].check = false;
+            mid_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(mid_boxes[0].x - 1, mid_boxes[0].y - 1, mid_boxes[0].width + 2, mid_boxes[0].height + 2);
+            var shiftBox = mid_boxes.shift();
+            shiftBox.y = right_boxes.length * 40;
+            shiftBox.x = 240;
+            right_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = right_boxes[0].color;
+            roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+        } else if(left_boxes[0].check) {
+            left_boxes[0].check = false;
+            left_boxes[0].linecolor = "rgb(0,0,0)";
+            context.clearRect(left_boxes[0].x - 1, left_boxes[0].y - 1, left_boxes[0].width + 2, left_boxes[0].height + 2);
+            var shiftBox = left_boxes.shift();
+            shiftBox.y = right_boxes.length * 40;
+            shiftBox.x = 240;
+            right_boxes.unshift(shiftBox);
+            context.save();
+            context.fillStyle = right_boxes[0].color;
+            roundRect(context, right_boxes[0].x, right_boxes[0].y, right_boxes[0].width, right_boxes[0].height, 10, right_boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
         }
+        check = false;
     }
 
     function selectBox(boxes){
-        boxes[0].check = boxes[0].check ? false : true;
-        boxes[0].linecolor = "rgb(255,255,255)";
-        context.save();
-        context.fillStyle = boxes[0].color;
-        roundRect(context, boxes[0].x, boxes[0].y, boxes[0].width, boxes[0].height, 10, boxes[0].linecolor);
-        context.stroke();
-        context.fill();
-        context.restore();
+        if(boxes[0]){
+            boxes[0].check = boxes[0].check ? false : true;
+            boxes[0].linecolor = "rgb(255,255,255)";
+            context.save();
+            context.fillStyle = boxes[0].color;
+            roundRect(context, boxes[0].x, boxes[0].y, boxes[0].width, boxes[0].height, 10, boxes[0].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
+            check = true;
+        }
     }
     function pushBox(boxes, x){
         var num;
