@@ -141,37 +141,11 @@ $(document).ready(function () {
         pushBox(left_boxes, 0);
         pushBox(mid_boxes, 120);
         pushBox(right_boxes, 240);
+        //箱子向下移动
+        moveDownBox(left_boxes);
+        moveDownBox(mid_boxes);
+        moveDownBox(right_boxes);
 
-        //左方箱子向下移动
-        for(var i=0;i<left_boxes.length;i++){
-            left_boxes[i].y += 40;
-            context.save();
-            context.fillStyle = left_boxes[i].color;
-            roundRect(context, left_boxes[i].x, left_boxes[i].y, left_boxes[i].width, left_boxes[i].height, 10, left_boxes[i].linecolor);
-            context.stroke();
-            context.fill();
-            context.restore();
-        }
-        //中间箱子向下移动
-        for(var i=0;i<mid_boxes.length;i++){
-            mid_boxes[i].y += 40;
-            context.save();
-            context.fillStyle = mid_boxes[i].color;
-            roundRect(context, mid_boxes[i].x, mid_boxes[i].y, mid_boxes[i].width, mid_boxes[i].height, 10, mid_boxes[i].linecolor);
-            context.stroke();
-            context.fill();
-            context.restore();
-        }
-        //右方箱子向下移动
-        for(var i=0;i<right_boxes.length;i++){
-            right_boxes[i].y += 40;
-            context.save();
-            context.fillStyle = right_boxes[i].color;
-            roundRect(context, right_boxes[i].x, right_boxes[i].y, right_boxes[i].width, right_boxes[i].height, 10, right_boxes[i].linecolor);
-            context.stroke();
-            context.fill();
-            context.restore();
-        }
         if(playGame) {
             timeoutId = setTimeout(animate, 1500);
         }
@@ -219,7 +193,7 @@ $(document).ready(function () {
     }
     function moveBoxToMid(){
         if(mid_boxes[0] && mid_boxes[0].check){
-            mid_boxes[0].check = false;
+           mid_boxes[0].check = false;
             mid_boxes[0].linecolor = "rgb(0,0,0)";
             context.save();
             context.fillStyle = mid_boxes[0].color;
@@ -329,6 +303,18 @@ $(document).ready(function () {
             context.clearRect(boxes[count-1].x - 1, boxes.length*40 - count*40, boxes[count-1].width + 2, count*40 + 2);
             boxes.splice(0,count);
             point += count;
+        }
+    }
+
+    function moveDownBox(boxes) {
+        for(var i=0;i<boxes.length;i++){
+            boxes[i].y += 40;
+            context.save();
+            context.fillStyle = boxes[i].color;
+            roundRect(context, boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height, 10, boxes[i].linecolor);
+            context.stroke();
+            context.fill();
+            context.restore();
         }
     }
 
