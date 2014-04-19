@@ -215,7 +215,7 @@ $(document).ready(function() {
             asteroids.push(new Asteroid(x, y, radius, vX));
         }
 		if(playGame) {
-			setTimeout(animate, 33);
+			requestAnimationFrame(animate);
 		}
 	}
 	init();

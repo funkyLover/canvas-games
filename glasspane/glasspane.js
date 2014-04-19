@@ -47,7 +47,7 @@ $(document).ready(function(){
             context.fill();
         }
         if(flag){
-            setTimeout(animate, 33);
+            requestAnimationFrame(animate);
         }
     }
 
